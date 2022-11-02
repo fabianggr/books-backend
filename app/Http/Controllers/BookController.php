@@ -16,6 +16,10 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required'
+        ]);
+
         $book = new Book;
         $book->title = $request->title;
         $book->save();
@@ -31,12 +35,19 @@ class BookController extends Controller
 
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        $book->title = $request->title;
+        $book->save();
+        return $book;
     }
 
 
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response()->noContent();
     }
 }
